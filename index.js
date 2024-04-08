@@ -7,7 +7,6 @@ const {dbConn, dbSync} = require('./config/db_config');
 require('./models/models')
 
 const app = express();
-// app.use(express.json());
 app.use(bodyParser.json());
 
 const port = 8000
