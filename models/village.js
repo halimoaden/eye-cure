@@ -1,4 +1,4 @@
-const {sequelize, DataTypes} = require('../config/db_config')
+const {sequelize, DataTypes} = require('../config/db_config');
 
 const Village = sequelize.define('village', {
     id: {
@@ -16,4 +16,4 @@ const Village = sequelize.define('village', {
     paranoid: true
 });
 
-module.exports = Village
+module.exports = Village;

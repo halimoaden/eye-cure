@@ -6,7 +6,7 @@ const Joi = require('joi');
 const express = require('express');
 const router = express.Router();
 
-const UserModel = require('../models/user')
+const UserModel = require('../models/user');
 
 const pickData = [
     'id',
@@ -18,7 +18,7 @@ const pickData = [
     'is_admin',
     'createdAt',
     'updatedAt'
-]
+];
 
 
 router.get('/me', auth, async (req, res) => {
@@ -34,7 +34,7 @@ router.get('/me', auth, async (req, res) => {
         'updatedAt',
         'user_status',
         'is_admin'
-    ]
+    ];
 
     res.status(200).send(_.pick(user, pickData));
 })
@@ -53,7 +53,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const user = await UserModel.findByPk(req.params.id);
-    if( !user ) return res.status(400).send('Givig User ID not found.')
+    if( !user ) return res.status(400).send('Givig User ID not found.');
 
     try {
         const users = await UserModel.findAll({
@@ -70,7 +70,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const { error } = validateUser(req.body);
-    if( error ) return res.status(400).send(error.details[0].message)
+    if( error ) return res.status(400).send(error.details[0].message);
 
     try {
 
@@ -82,7 +82,7 @@ router.post('/', async (req, res) => {
             'user_status',
             'password',
             'is_admin'
-        ]
+        ];
 
         const userData = UserModel.build({
             full_name: req.body.full_name,
@@ -97,7 +97,7 @@ router.post('/', async (req, res) => {
         const salt = await bcrypt.genSalt(10);
         userData.password = await bcrypt.hash(userData.password, salt);
         const user = userData.save();
-        res.status(200).send(user)
+        res.status(200).send(user);
     } catch (error) {
         res.status(404).send(error.message);
     }
@@ -106,10 +106,10 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', auth , async (req, res) => {
     const { error } = validateUser(req.body);
-    if( error ) return res.status(400).send(error.details[0].message)
+    if( error ) return res.status(400).send(error.details[0].message);
 
     const user = await UserModel.findByPk(req.params.id);
-    if( !user ) return res.status(400).send('Givig User ID not found.')
+    if( !user ) return res.status(400).send('Givig User ID not found.');
 
     try {
         const salt = await bcrypt.genSalt(10);
@@ -127,7 +127,7 @@ router.put('/:id', auth , async (req, res) => {
                 id: req.params.id
             }
         });
-        res.status(200).send("Operation Done Successfully.")
+        res.status(200).send("Operation Done Successfully.");
     } catch (error) {
         res.status(404).send(error.message);
     }

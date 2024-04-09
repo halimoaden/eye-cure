@@ -2,14 +2,16 @@ const Joi = require('joi');
 const express = require('express');
 const router = express.Router();
 
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 const PaymentModel = require('../models/payment');
-const UserModel = require('../models/user')
-const PatientServiceModel = require('../models/patientservice')
-const ServiceModel = require('../models/service')
-const PatientModel = require('../models/patient')
-const VillageModel = require('../models/village')
-const DistrictModel = require('../models/district')
+const UserModel = require('../models/user');
+const PatientServiceModel = require('../models/patientservice');
+const ServiceModel = require('../models/service');
+const PatientModel = require('../models/patient');
+const VillageModel = require('../models/village');
+const DistrictModel = require('../models/district');
 
 router.get('/', async(req, res) => {
     try {
@@ -53,7 +55,7 @@ router.get('/', async(req, res) => {
 
 router.get('/:id', async(req, res) => {
     const payment = await PaymentModel.findByPk(req.params.id);
-    if( !payment ) return res.status(404).send('Givig Payment ID not found.')
+    if( !payment ) return res.status(404).send('Givig Payment ID not found.');
 
 
     try {
@@ -99,7 +101,7 @@ router.get('/:id', async(req, res) => {
 
 router.post('/', async (req, res) => {
     const { error } = validatePayment(req.body);
-    if( error ) return res.status(400).send(error.details[0].message)
+    if( error ) return res.status(400).send(error.details[0].message);
 
 
     try {
@@ -110,18 +112,18 @@ router.post('/', async (req, res) => {
             amount: req.body.amount,
             payment_status: req.body.payment_status
         });
-        res.status(201).send("Operation Done Successfully.")
+        res.status(201).send("Operation Done Successfully.");
     } catch (error) {
         res.status(404).send(error.message);
     }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', [auth, admin], async (req, res) => {
     const { error } = validatePayment(req.body);
-    if( error ) return res.status(400).send(error.details[0].message)
+    if( error ) return res.status(400).send(error.details[0].message);
 
     const payment = await PaymentModel.findByPk(req.params.id);
-    if(!payment) return res.status(404).send('Giving Payment ID not found.')
+    if(!payment) return res.status(404).send('Giving Payment ID not found.');
 
     try {
         await PaymentModel.update({
@@ -135,23 +137,23 @@ router.put('/:id', async (req, res) => {
                 id: req.params.id
             }
         });
-        res.status(200).send("Operation Done Successfully.")
+        res.status(200).send("Operation Done Successfully.");
     } catch (error) {
         res.status(404).send(error.message);
     }
 });
 
-router.delete('/:id', async (req, res) =>{
+router.delete('/:id', [auth, admin], async (req, res) =>{
     const payment = await PaymentModel.findByPk(req.params.id);
-    if(!payment) return res.status(404).send('Giving Payment ID not found.')
+    if(!payment) return res.status(404).send('Giving Payment ID not found.');
 
     try {
         await PaymentModel.destroy({
             where: {
                 id: req.params.id
             }
-        })
-        res.status(200).send('Operation Done Successfully.')
+        });
+        res.status(200).send('Operation Done Successfully.');
     } catch (error) {
         res.status(404).send(error.message);
     }

@@ -1,4 +1,4 @@
-const {sequelize, DataTypes} = require('../config/db_config')
+const {sequelize, DataTypes} = require('../config/db_config');
 
 const Service = sequelize.define('service', {
     id: {
@@ -9,9 +9,8 @@ const Service = sequelize.define('service', {
     service_name: {
         type: DataTypes.STRING
     }
-   
 },{
     paranoid: true
 });
 
-module.exports = Service
+module.exports = Service;

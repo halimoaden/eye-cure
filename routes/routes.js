@@ -15,5 +15,5 @@ module.exports = function(app) {
     app.use('/api/patientservices', PatientServiceRoute);
     app.use('/api/users', UserRoute);
     app.use('/api/payments', PaymentRoute);
-    app.use('/api/auth', AuthRoute);
+    app.use('/api/login', AuthRoute);
 }

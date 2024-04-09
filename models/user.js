@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const { sequelize, DataTypes } = require('../config/db_config');
 
 
@@ -31,7 +31,7 @@ const userSchema = {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     }
-}
+};
 
 const User = sequelize.define('user', userSchema , { paranoid: true });
 

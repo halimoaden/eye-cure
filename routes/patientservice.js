@@ -1,13 +1,13 @@
-const auth = require('../middleware/auth')
-const admin = require('../middleware/admin')
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 const Joi = require('joi');
 const express = require('express');
 const router = express.Router();
 
-const PatientServiceModel = require('../models/patientservice')
-const PatientMOdel = require('../models/patient')
-const ServiceModel = require('../models/service')
-const UserModel = require('../models/user')
+const PatientServiceModel = require('../models/patientservice');
+const PatientMOdel = require('../models/patient');
+const ServiceModel = require('../models/service');
+const UserModel = require('../models/user');
 
 router.get('/', async (req, res) => {
     try {
@@ -26,10 +26,10 @@ router.get('/', async (req, res) => {
                     attributes: ['user_name', 'full_name', 'email', 'phone', 'is_admin','user_status']
                 }
             ],
-        })
-        res.status(200).send(infos)
+        });
+        res.status(200).send(infos);
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(404).send(error.message);
     }
 });
 
@@ -59,10 +59,10 @@ router.get('/:id', async (req, res) => {
             where: {
                 id: req.params.id
             }
-        })
-        res.status(200).send(info)
+        });
+        res.status(200).send(info);
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(404).send(error.message);
     }
 });
 
@@ -78,9 +78,9 @@ router.post('/', auth, async (req, res) => {
             status_info: req.body.status_info,
             user_id: req.body.user_id
         });
-        res.status(201).send("Operation Done Successfully.")
+        res.status(201).send("Operation Done Successfully.");
     } catch (error) {
-        res.status(404).send(error)
+        res.status(404).send(error);
     }
 
 });
@@ -105,26 +105,26 @@ router.put('/:id', [auth, admin], async (req, res) => {
             }
         });
 
-        res.status(201).send("Operation Done Successfully.")
+        res.status(201).send("Operation Done Successfully.");
     } catch (error) {
-        res.status(404).send(error)
+        res.status(404).send(error);
     }
 })
 
 
 router.delete('/:id', [auth, admin], async (req, res) => {
-    const patient = await PatientServiceModel.findByPk(req.params.id)
-    if( !patient ) return res.status(400).send('Giving Patient Service ID not found.')
+    const patient = await PatientServiceModel.findByPk(req.params.id);
+    if( !patient ) return res.status(400).send('Giving Patient Service ID not found.');
 
     try {
         await PatientServiceModel.destroy({
             where: {
               id: req.params.id
             }
-        })
-        res.status(204).send('Operation Done Successfully.')
+        });
+        res.status(204).send('Operation Done Successfully.');
     } catch (error) {
-        res.status(404).send(error.message)
+        res.status(404).send(error.message);
     }
 })
 
@@ -138,9 +138,9 @@ function validateServiceInfo(info) {
         due_amount: Joi.number().required(),
         status_info: Joi.number(),
         user_id: Joi.number().required()
-    }
+    };
 
-    return Joi.validate(info, serviceInfoSchema)
+    return Joi.validate(info, serviceInfoSchema);
 }
 
 

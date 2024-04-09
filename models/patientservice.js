@@ -1,4 +1,4 @@
-const {sequelize, DataTypes} = require('../config/db_config')
+const {sequelize, DataTypes} = require('../config/db_config');
 
 const PatientService = sequelize.define('patientservice', {
     id: {
@@ -26,4 +26,4 @@ const PatientService = sequelize.define('patientservice', {
     paranoid: true
 });
 
-module.exports = PatientService
+module.exports = PatientService;

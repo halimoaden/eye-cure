@@ -1,4 +1,4 @@
-const {sequelize, DataTypes} = require('../config/db_config')
+const {sequelize, DataTypes} = require('../config/db_config');
 
 const District = sequelize.define('district', {
     id: {
@@ -13,4 +13,4 @@ const District = sequelize.define('district', {
     paranoid: true
 });
 
-module.exports = District
+module.exports = District;
