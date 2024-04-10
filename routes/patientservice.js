@@ -12,7 +12,7 @@ const VillageModel = require('../models/village');
 const DistrictModel = require('../models/district');
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const infos = await PatientServiceModel.findAll({
             include: [
@@ -48,7 +48,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
 
     const info = await PatientServiceModel.findByPk(req.params.id);
     if(!info) return res.status(400).send('Giving Patient Service ID not found.');
@@ -141,9 +141,6 @@ router.delete('/:id', [auth, admin], async (req, res) => {
         res.status(404).send(error.message);
     }
 })
-
-
-
 
 function validateServiceInfo(info) {
     const serviceInfoSchema = {

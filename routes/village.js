@@ -13,7 +13,7 @@ const DistrictModel = require('../models/district');
 
 // get all Villages
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
 
     try {
         const villages = await VillageModel.findAll({
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
 // get single village by its id
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     const village = await VillageModel.findByPk(req.params.id);
     if( !village ) return res.status(400).send("Giving Village ID not found.");
 
@@ -53,7 +53,7 @@ router.get('/:id', async (req, res) => {
 
 // create a village
 
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
 
     const { error } = validateVillage(req.body);
     if(error) return res.status(400).send(error.details[0].message);

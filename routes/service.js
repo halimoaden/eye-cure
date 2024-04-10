@@ -7,7 +7,7 @@ const router = express.Router();
 const ServiceModel = require('../models/service');
 
 
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
     try {
         const services = await ServiceModel.findAll();
         res.status(200).send(services);
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', auth, async (req, res) => {
     const service = await ServiceModel.findByPk(req.params.id);
     if( !service ) return res.status(400).send("Giving Service ID not found.");
 
