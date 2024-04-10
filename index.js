@@ -22,8 +22,10 @@ PatientModel.belongsTo(VillageModel, { foreignKey: 'village_id' });
 
 ServiceModel.hasMany(PatientServiceModel, { foreignKey: 'service_id' });
 PatientServiceModel.belongsTo(ServiceModel, { foreignKey: 'service_id' });
+
 PatientModel.hasMany(PatientServiceModel, { foreignKey: 'patient_id' });
 PatientServiceModel.belongsTo(PatientModel, { foreignKey: 'patient_id' });
+
 UserModel.hasMany(PatientServiceModel, { foreignKey: 'user_id'});
 PatientServiceModel.belongsTo(UserModel, { foreignKey: 'user_id'});
 

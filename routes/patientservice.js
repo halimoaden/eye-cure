@@ -8,6 +8,9 @@ const PatientServiceModel = require('../models/patientservice');
 const PatientMOdel = require('../models/patient');
 const ServiceModel = require('../models/service');
 const UserModel = require('../models/user');
+const VillageModel = require('../models/village');
+const DistrictModel = require('../models/district');
+
 
 router.get('/', async (req, res) => {
     try {
@@ -19,7 +22,18 @@ router.get('/', async (req, res) => {
                 },
                 {
                     model: PatientMOdel,
-                    attributes: ['name', 'phone', 'email']
+                    attributes: ['name', 'phone', 'email'],
+                    as: 'patient',
+                    include: [{
+                        model: VillageModel,
+                        attributes: ['village_name', 'district_id'],
+                        as: 'village',
+                        include: [{
+                            model: DistrictModel,
+                            attributes: ['district_name'],
+                            as: 'district'
+                        }]
+                    }]
                 },
                 {
                     model: UserModel,
