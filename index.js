@@ -6,13 +6,13 @@ const {dbConn, dbSync} = require('./config/db_config');
 // All Database MODELS and RELATIONSHIPS
 // require('./models/models');
 
-const UserModel = require('./user');
-const DistrictModel = require('./district');
-const VillageModel = require('./village');
-const PatientModel = require('./patient');
-const ServiceModel = require('./service');
-const PatientServiceModel = require('./patientservice');
-const PaymentModel = require('./payment');
+const UserModel = require('./models/user');
+const DistrictModel = require('./models/district');
+const VillageModel = require('./models/village');
+const PatientModel = require('./models/patient');
+const ServiceModel = require('./models/service');
+const PatientServiceModel = require('./models/patientservice');
+const PaymentModel = require('./models/payment');
 
 DistrictModel.hasMany(VillageModel, { foreignKey: 'district_id' });
 VillageModel.belongsTo(DistrictModel, { foreignKey: 'district_id' });
