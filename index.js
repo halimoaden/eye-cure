@@ -9,7 +9,6 @@ require('./models/models');
 const app = express();
 app.use(bodyParser.json());
 
-const port = 8000;
 
 app.get('/', (req, res) => {
     res.status(200).send('Home Page');
@@ -19,6 +18,7 @@ app.get('/', (req, res) => {
 // All API Routes
 require('./routes/routes')(app);
 
+const port = 8080;
 
 app.listen(port, async () => {
     console.log(`Server is running on http://localhost:${port}`);
