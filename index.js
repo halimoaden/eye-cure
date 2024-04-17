@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const {dbConn, dbSync} = require('./config/db_config');
 
@@ -36,6 +37,9 @@ PaymentModel.belongsTo(UserModel, { foreignKey: 'user_id' });
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors({
+    origin: '*'
+}));
 
 
 app.get('/', (req, res) => {
