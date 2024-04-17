@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
 
 // get single village by its id
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', [auth], async (req, res) => {
     const village = await VillageModel.findByPk(req.params.id);
     if( !village ) return res.status(400).send("Giving Village ID not found.");
 

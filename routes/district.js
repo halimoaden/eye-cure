@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 
 // get single district by its id
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', [auth], async (req, res) => {
 
     const district = await DistrictModel.findByPk(req.params.id);
     if( !district ) return res.status(400).send("Giving District ID not found.");

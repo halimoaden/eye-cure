@@ -51,7 +51,7 @@ router.get('/', async (req, res) => {
 })
 
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', [auth], async (req, res) => {
     const user = await UserModel.findByPk(req.params.id);
     if( !user ) return res.status(400).send('Givig User ID not found.');
 
