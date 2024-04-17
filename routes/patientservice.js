@@ -12,7 +12,7 @@ const VillageModel = require('../models/village');
 const DistrictModel = require('../models/district');
 
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const infos = await PatientServiceModel.findAll({
             include: [
@@ -48,7 +48,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     const info = await PatientServiceModel.findByPk(req.params.id);
     if(!info) return res.status(400).send('Giving Patient Service ID not found.');
@@ -80,7 +80,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     const { error } = validateServiceInfo(req.body);
     if( error ) return res.status(400).send(error.details[0].message);
 
@@ -99,7 +99,7 @@ router.post('/', auth, async (req, res) => {
 
 });
 
-router.put('/:id', [auth, admin], async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { error } = validateServiceInfo(req.body);
     if( error ) return res.status(400).send(error.details[0].message);
 

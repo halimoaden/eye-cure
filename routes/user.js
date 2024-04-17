@@ -39,7 +39,7 @@ router.get('/me', auth, async (req, res) => {
     res.status(200).send(_.pick(user, pickData));
 })
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const users = await UserModel.findAll({
             attributes: pickData
@@ -51,7 +51,7 @@ router.get('/', auth, async (req, res) => {
 })
 
 
-router.get('/:id', [auth, admin], async (req, res) => {
+router.get('/:id', async (req, res) => {
     const user = await UserModel.findByPk(req.params.id);
     if( !user ) return res.status(400).send('Givig User ID not found.');
 
@@ -104,7 +104,7 @@ router.post('/', async (req, res) => {
 })
 
 
-router.put('/:id', auth, async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { error } = validateUser(req.body);
     if( error ) return res.status(400).send(error.details[0].message);
 

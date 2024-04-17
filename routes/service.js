@@ -17,7 +17,7 @@ router.get('/', auth, async (req, res) => {
 })
 
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
     const service = await ServiceModel.findByPk(req.params.id);
     if( !service ) return res.status(400).send("Giving Service ID not found.");
 
@@ -33,7 +33,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 })
 
-router.post('/', [auth, admin], async (req, res) => {
+router.post('/', async (req, res) => {
     const {error} = validateService(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
@@ -47,7 +47,7 @@ router.post('/', [auth, admin], async (req, res) => {
     }
 })
 
-router.put('/:id', [auth, admin], async (req, res) => {
+router.put('/:id', async (req, res) => {
     const {error} = validateService(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 

@@ -11,7 +11,7 @@ const DistrictModel = require('../models/district');
 
 // get all Districts
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const districts = await DistrictModel.findAll();
         res.status(200).send(districts);
@@ -22,7 +22,7 @@ router.get('/', auth, async (req, res) => {
 
 // get single district by its id
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     const district = await DistrictModel.findByPk(req.params.id);
     if( !district ) return res.status(400).send("Giving District ID not found.");
@@ -42,7 +42,7 @@ router.get('/:id', auth, async (req, res) => {
 
 // create a district
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     const {error} = validateDistrict(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
@@ -58,7 +58,7 @@ router.post('/', auth, async (req, res) => {
 
 // update a district
 
-router.put('/:id', [auth, admin], async(req, res) => {
+router.put('/:id', async(req, res) => {
 
     const district = await DistrictModel.findByPk(req.params.id);
     if( !district ) return res.status(400).send("Giving District ID not found.");

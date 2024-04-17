@@ -8,7 +8,7 @@ const PatientModel = require('../models/patient');
 const VillageModel = require('../models/village');
 const DistrictModel = require('../models/district');
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
 
     try{
         const patients = await PatientModel.findAll({
@@ -28,7 +28,7 @@ router.get('/', auth, async (req, res) => {
 })
 
 
-router.post('/', [auth, admin], async (req, res) => {
+router.post('/', async (req, res) => {
     
     const { error } = validatePatient(req.body);
     if( error ) return res.status(400).send(error.details[0].message);
@@ -47,7 +47,7 @@ router.post('/', [auth, admin], async (req, res) => {
     }
 })
 
-router.get('/:id', auth, async (req, res) => {
+router.get('/:id', async (req, res) => {
 
     const patient = await PatientModel.findByPk(req.params.id);
     if( !patient ) return res.status(400).send('Giving Patient ID not found.');
@@ -73,7 +73,7 @@ router.get('/:id', auth, async (req, res) => {
     }
 })
 
-router.put('/:id', [auth, admin], async (req, res) => {
+router.put('/:id', async (req, res) => {
     const patient = await PatientModel.findByPk(req.params.id);
     if( !patient ) return res.status(400).send('Giving Patient ID not found.');
 

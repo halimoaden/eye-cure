@@ -13,7 +13,7 @@ const PatientModel = require('../models/patient');
 const VillageModel = require('../models/village');
 const DistrictModel = require('../models/district');
 
-router.get('/', auth, async(req, res) => {
+router.get('/', async(req, res) => {
     try {
         const payments = await PaymentModel.findAll({
             include: [
@@ -53,7 +53,7 @@ router.get('/', auth, async(req, res) => {
 });
 
 
-router.get('/:id', auth, async(req, res) => {
+router.get('/:id', async(req, res) => {
     const payment = await PaymentModel.findByPk(req.params.id);
     if( !payment ) return res.status(404).send('Givig Payment ID not found.');
 
@@ -99,7 +99,7 @@ router.get('/:id', auth, async(req, res) => {
     }
 });
 
-router.post('/', auth, async (req, res) => {
+router.post('/', async (req, res) => {
     const { error } = validatePayment(req.body);
     if( error ) return res.status(400).send(error.details[0].message);
 
@@ -118,7 +118,7 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
-router.put('/:id', [auth, admin], async (req, res) => {
+router.put('/:id', async (req, res) => {
     const { error } = validatePayment(req.body);
     if( error ) return res.status(400).send(error.details[0].message);
 
