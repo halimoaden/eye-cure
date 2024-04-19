@@ -7,7 +7,7 @@ const router = express.Router();
 const ServiceModel = require('../models/service');
 
 
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const services = await ServiceModel.findAll();
         res.status(200).send(services);
